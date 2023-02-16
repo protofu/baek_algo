@@ -1,27 +1,26 @@
 import sys
-input = sys.stdin.readline
 sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
 
-n,m,r = map(int,input().split())
-link = [[] for _ in range(n+1)]
-ans = [0]*(n+1)
-cur = 1
+V, E, S = map(int, input().split())
+node = [[] for _ in range(V+1)]
+num = 1
+visited = [0]*(V+1)
+for _ in range(E):
+    A, B = map(int, input().strip().split())
+    node[A].append(B)
+    node[B].append(A)
 
-for _ in range(m):
-    a,b = map(int,input().split())
-    link[a].append(b)
-    link[b].append(a)
-for lst in link:
-    lst.sort() # 오름차순 방문
+for i in node:
+    i.sort()
 
-def dfs(v):
-    global cur
-    ans[v] = cur
-    for to_v in link[v]:
-        if ans[to_v]:
-            continue
-        cur+=1
-        dfs(to_v)
-dfs(r)
-for i in ans[1:]:
+def dfs(S):
+    global num
+    visited[S] = num
+    for i in node[S]:
+        if not visited[i]:
+            num += 1
+            dfs(i)
+dfs(S)
+for i in visited[1:]:
     print(i)
