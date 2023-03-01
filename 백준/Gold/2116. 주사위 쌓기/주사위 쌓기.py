@@ -1,6 +1,6 @@
 n = int(input())
 dice = [list(map(int, input().split())) for _ in range(n)]
-Max_lst = []
+Max_ans = 0
 
 for i in range(6):
     s = i
@@ -26,5 +26,6 @@ for i in range(6):
                 s = dice[j+1].index(dice[j][4])
             elif j != n-1 and s == 4:
                 s = dice[j + 1].index(dice[j][2])
-    Max_lst.append(Max)
-print(max(Max_lst))
+    if Max_ans < Max:
+        Max_ans = Max
+print(Max_ans)
