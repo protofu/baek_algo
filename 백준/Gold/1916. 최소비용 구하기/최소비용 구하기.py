@@ -1,39 +1,44 @@
-INF = 100000001
-n = int(input())
-m = int(input())
-graph = [[INF for _ in range(n+1)] for _ in range(n+1)]
-d = [INF for _ in range(n+1)]
-visit = [False for _ in range(n+1)]
-
-
-def minIndex():
-    minValue = INF
-    idx = 0
-    for i in range(1, n+1):
-        if not visit[i] and minValue > d[i]:
-            minValue = d[i]
+def get_smallest_node():
+    min_value = INF
+    idx = 1
+    for i in range(1, N+1):
+        if dist[i] < min_value and not visited[i]:
+            min_value = dist[i]
             idx = i
     return idx
 
+def dijkstra(start):
+    dist[start] = 0
+    visited[start] = True
 
-def dijkstra(x):
-    for i in range(1, n+1):
-        d[i] = graph[x][i]
-    visit[x] = True
+    for j in graph[start]:
+        if dist[j[0]] > j[1]:
+            dist[j[0]] = j[1]
 
-    for _ in range(n-2):
-        x = minIndex()
-        visit[x] = True
-        for i in range(1, n+1):
-            if not visit[i] and graph[x][i] + d[x] < d[i]:
-                d[i] = graph[x][i] + d[x]
-    print(d[e])
+    for _ in range(N-1):
+        now = get_smallest_node()
+        visited[now] = True
 
+        for j in graph[now]:
+            cost = dist[now] + j[1]
+            if cost < dist[j[0]] and not visited[j[0]]:
+                dist[j[0]] = cost
 
-for _ in range(m):
-    a, b, c = map(int, input().split())
-    graph[a][b] = min(graph[a][b], c)
+INF = int(1e9)
+N = int(input())
+M = int(input())
+graph = [[] for _ in range(N+1)]
+dist = [INF for _ in range(N+1)]
+visited = [False]*(N+1)
 
-s, e = map(int, input().split())
+for _ in range(M):
+    start, end, cost = map(int, input().split())
+    graph[start].append((end, cost))
 
-dijkstra(s)
+start, end = map(int, input().split())
+
+dijkstra(start)
+if end == start:
+    print(0)
+else:
+    print(dist[end])
