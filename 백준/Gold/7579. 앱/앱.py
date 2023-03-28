@@ -18,8 +18,8 @@ for y in range(N):
             ans = min(ans, x)
 if not M:
     print(0)
-elif N == 1:
-    print(cost[0])
+# elif N == 1:
+#     print(cost[0])
 elif ans == INF:
     print(N*M)
 else:
