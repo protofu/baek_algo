@@ -15,7 +15,7 @@ def cal(n, S, p, m, s, h):
         cal(n - lst[S], S+1, p, m-1, s, h)
     if s > 0:
         cal(n * lst[S], S+1, p, m, s-1, h)
-    if h > 0:
+    if h > 0: # 이거 몫만 취한다면서 왜 // 은 안되는거지....
         cal(int(n / lst[S]), S+1, p, m, s, h-1)
 
 N = int(input())
