@@ -19,11 +19,11 @@ while True:
     if not w and not h:
         break
     mat = [list(map(int, input().split())) for _ in range(h)]
-    result = 0
+    ans = 0
     for y in range(h):
         for x in range(w):
             if mat[y][x]:
                 mat[y][x] = 0
                 bfs(y, x, mat)
-                result += 1
-    print(result)
+                ans += 1
+    print(ans)
