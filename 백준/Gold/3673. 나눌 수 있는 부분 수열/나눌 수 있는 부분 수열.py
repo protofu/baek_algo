@@ -1,13 +1,11 @@
 for _ in range(int(input())):
     d, n = map(int, input().split())
-    a = list(map(int, input().split()))
-    s = [0] * (n + 1)
-    for i in range(1, n + 1):
-        s[i] = (s[i - 1] + a[i - 1]) % d
-    cnt = [0] * d
-    for i in range(n + 1):
-        cnt[s[i]] += 1
-    ans = 0
+    numbers = list(map(lambda x: int(x)%d, input().split()))
+    cnt = ans = 0
+    cnts = [1] + [0] * (d-1)
+    for num in numbers:
+        cnt = (cnt + num) % d
+        cnts[cnt] += 1
     for x in range(d):
-        ans += cnt[x] * (cnt[x] - 1) // 2
+        ans += cnts[x] * (cnts[x] - 1) // 2
     print(ans)
