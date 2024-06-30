@@ -1,20 +1,23 @@
 from collections import deque
 
-def solution(bridge_length, weight, truck_weights):
-    # bridge_length 최대 다리위 트럭 수, weight 하중, truck_weights 트럭별 무게
+def solution(bl, w, tw):
     answer = 0
-    truck_weights = deque(truck_weights)
-    queue = deque([0]*bridge_length)
+    # 앞뒤로 작업할거라 deque
+    bridge = deque([0]*bl)
+    tw = deque(tw)
     wei = 0
-    while truck_weights:
+    # 언제 끝날지 몰라서 while
+    while tw:
+        # 1초 +
         answer += 1
-        wei -= queue.popleft()
-        if wei + truck_weights[0] <= weight:
-            wei += truck_weights[0]
-            queue.append(truck_weights.popleft())
+        # 먼저 공간을 만들어주고
+        wei -= bridge.popleft()
+        # 남은 트럭이 있으면서, 다리트럭 무게 + 지나갈 트럭 무게가 초과가 아니면 지나가기
+        if wei+tw[0] <= w:
+            wei += tw[0]
+            bridge.append(tw.popleft())
+        # 초과라면 다리 위 트럭 움직이기, 공간 다시 넣기
         else:
-            queue.append(0)
-        
-    answer += len(queue)
-        
+            bridge.append(0)
+    answer += len(bridge)        
     return answer
