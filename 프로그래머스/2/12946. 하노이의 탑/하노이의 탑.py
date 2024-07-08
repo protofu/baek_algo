@@ -3,13 +3,14 @@ sys.setrecursionlimit(10**6)
 
 def solution(n):
     answer = []
-    def hanoi(start, target, mid, n):
+    def hanoi(start, tmp, target, n):
         if n == 1:
             answer.append([start, target])
             return
-        hanoi(start, mid, target, n-1)
-        hanoi(start, target, mid, 1)
-        hanoi(mid, target, start, n-1)
-
-    hanoi(1, 3, 2, n)
+        hanoi(start, target, tmp, n-1)
+        hanoi(start, tmp, target, 1)
+        hanoi(tmp, start, target, n-1)
+    
+    hanoi(1, 2, 3, n)
+    
     return answer
