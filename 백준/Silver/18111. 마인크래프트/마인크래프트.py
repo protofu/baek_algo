@@ -1,5 +1,7 @@
+from collections import Counter
+
 n, m, inven = map(int, input().split())
-mine = sum([list(map(int, input().split())) for _ in range(n)], [])
+mine = Counter(sum([list(map(int, input().split())) for _ in range(n)], []))
 mine_high = max(mine)
 mine_low = min(mine)
 time = float('inf')
@@ -9,15 +11,15 @@ lend = 0
 # 대충 땅크기 250*250, 땅최대 0-256, 1610만회 -> 1초 안걸림 0.8초쯤?
 for standard in range(mine_low, mine_high+1):
     dig = fill = tmp_time = 0
-    for ground in mine:
+    for ground, cnt in mine.items():
         # 기준보다 낮은 땅이면
         if ground < standard:
             # 얼마나 채워야할지 측정
-            fill += standard - ground
-        # 기준보다 높은 땅이면
-        elif ground > standard:
+            fill += (standard - ground) * cnt
+        # 기준보다 높은 땅 or 동일한 높이이면
+        else:
             # 얼마나 파야할지 측정
-            dig += ground - standard
+            dig += (ground - standard) * cnt
 
     # 기준에 대해 모두 측정 후 판단
 
