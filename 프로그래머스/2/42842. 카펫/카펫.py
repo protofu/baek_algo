@@ -1,14 +1,15 @@
 def solution(brown, yellow):
     answer = []
-    lst = []
-    rlt = []
-    total = brown + yellow
-    for i in range(1, yellow+1):
-        if yellow%i == 0 and yellow >= i*i:
-            lst.append(i+2)
-    for n in lst:
-        if total % n == 0:
-            if (n-2)*(total//n-2) == yellow:
-                answer.append(total//n)
-                answer.append(n)
+    xy = []
+    blocks = brown + yellow
+    for i in range(3, blocks//3+1):
+        if blocks%i == 0 and i >= blocks//i:
+            xy.append([i, blocks//i])
+    
+    for x, y in xy:
+        if (x-2)*(y-2) == yellow:
+            answer.append(x)
+            answer.append(y)
+    
+    print(answer)
     return answer
