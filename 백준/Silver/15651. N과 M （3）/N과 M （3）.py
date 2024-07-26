@@ -1,16 +1,15 @@
-import sys
-input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
-
-N, M = map(int, input().split())
-lst = []
-def dfs(S):
-    if len(lst) == M:
-        print(*lst)
+n, m = map(int, input().split())
+ans = []
+# 백트래킹
+def back():
+    # 출력 시점
+    if len(ans) == m:
+        print(*ans)
         return
-    else:
-        for i in range(1, N+1):
-            lst.append(i)
-            dfs(i)
-            lst.pop()
-dfs(1)
+    # 하나씩 순회하면서 백트래킹 넣기
+    for i in range(1, n+1):
+        # 메인의 for문 안 동작과 동일
+        ans.append(i)
+        back()
+        ans.pop()
+back()
